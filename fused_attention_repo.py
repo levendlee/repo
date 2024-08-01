@@ -6,7 +6,7 @@ from typing import Any, Callable, Iterable, Optional, Sequence, Tuple
 import torch
 import transformer_engine
 import transformer_engine.pytorch.cpp_extensions
-import transformer_engine_extensions as tex
+import transformer_engine_torch as tex
 
 from triton.testing import do_bench
 
@@ -57,10 +57,10 @@ def repo():
                     qkv_dtype=tex.DType.kBFloat16,
                     cu_seqlens_q=cu_seqlens_q,
                     cu_seqlens_kv=cu_seqlens_kv,
-                    seq_offsets_q=(cu_seqlens_q * h * d),
-                    seq_offsets_k=(cu_seqlens_kv * h * d),
-                    seq_offsets_v=(cu_seqlens_kv * h * d),
-                    seq_offsets_o=(cu_seqlens_q * h * d),
+                    #seq_offsets_q=(cu_seqlens_q * h * d),
+                    #seq_offsets_k=(cu_seqlens_kv * h * d),
+                    #seq_offsets_v=(cu_seqlens_kv * h * d),
+                    #seq_offsets_o=(cu_seqlens_q * h * d),
                     max_seqlen_q=max_seqlen_q,
                     max_seqlen_kv=max_seqlen_kv,
                     dropout=dropout,
@@ -77,6 +77,7 @@ def repo():
 
 
 if __name__ == "__main__":
+    print("torch!")
     print(f"{torch.version.cuda=}")
     print(f"{torch.backends.cudnn.version()=}")
     repo()
